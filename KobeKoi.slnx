@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="KobeKoi.BLL/KobeKoi.BLL.csproj" />
+  <Project Path="KobeKoi.DAL/KobeKoi.DAL.csproj" />
+  <Project Path="KobeKoi.web/KobeKoi.web.csproj" />
+</Solution>
