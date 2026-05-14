@@ -40,7 +40,7 @@ public partial class KobeKoiContext : DbContext
             entity.HasOne(d => d.Attendee).WithMany(p => p.Bookings)
                 .HasForeignKey(d => d.AttendeeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Bookings_Users");
+                .HasConstraintName("FK_Bookings_Users1");
 
             entity.HasOne(d => d.Event).WithMany(p => p.Bookings)
                 .HasForeignKey(d => d.EventId)
@@ -51,6 +51,7 @@ public partial class KobeKoiContext : DbContext
         modelBuilder.Entity<Event>(entity =>
         {
             entity.Property(e => e.EventDate).HasColumnType("datetime");
+            entity.Property(e => e.TicketPrice).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Title)
                 .HasMaxLength(50)
                 .IsUnicode(false);

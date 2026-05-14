@@ -23,6 +23,8 @@ public partial class Event
 
     public int OrganizerId { get; set; }
 
+    public decimal TicketPrice { get; set; }
+
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
     public virtual User Organizer { get; set; } = null!;

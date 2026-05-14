@@ -1,3 +1,5 @@
+using KobeKoi.BLL.Service.Events;
+using KobeKoi.DAL.EF;
 using KobeKoi.web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -6,9 +8,19 @@ namespace KobeKoi.web.Controllers
 {
     public class HomeController : Controller
     {
+        EventService eventService;
+
+        public HomeController (EventService eventService)
+        {
+            this.eventService = eventService;
+        }
+
+
+
         public IActionResult Index()
         {
-            return View();
+            var events = eventService.GetAllEvents();
+            return View(events);
         }
 
         public IActionResult Privacy()

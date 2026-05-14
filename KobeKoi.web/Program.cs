@@ -1,9 +1,17 @@
+using KobeKoi.BLL;
+using KobeKoi.BLL.Service.Events;
 using KobeKoi.DAL.EF;
+using KobeKoi.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<KobeKoiContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("KobeKoiContext")));
+
+builder.Services.AddScoped<EventService>();
+builder.Services.AddScoped<EventRepo>();
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
