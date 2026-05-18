@@ -64,6 +64,26 @@ namespace KobeKoi.web.Controllers
             return View();
         }
 
+        //SignUp Data process
+        [HttpPost]
+        public IActionResult SignUp(CreateUserDTO dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(dto);
+            }
+
+            var result = _authService.CreateUser(dto);
+
+            if (result)
+            {
+                return RedirectToAction("Login");
+            }
+
+            ViewBag.Message = "User creation failed";
+            return View(dto);
+        }
+
         //Login check Function
         private bool IsLoggedIn()
         {
@@ -76,7 +96,6 @@ namespace KobeKoi.web.Controllers
             }
             return false;
         }
-
 
         //Dashboard
         public IActionResult Dashboard()

@@ -19,5 +19,10 @@ namespace KobeKoi.DAL.Repositories
         {
             return _db.Users;
         }
+        public void Add(User user)
+        {
+            _db.Users.Add(user);
+            _db.SaveChanges();
+        }
     }
 }

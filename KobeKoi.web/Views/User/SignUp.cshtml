@@ -10,21 +10,24 @@
 
         <h3 class="text-center mb-4">Create Account</h3>
 
-        <form asp-action="SignUp" asp-controller="Auth" method="post">
+        <form asp-action="SignUp" asp-controller="User" method="post">
 
             <div class="mb-3">
                 <label asp-for="Name" class="form-label"></label>
                 <input asp-for="Name" class="form-control" placeholder="Enter your name" />
+                <span asp-validation-for="Name" class="text-danger small"></span>
             </div>
 
             <div class="mb-3">
                 <label asp-for="Email" class="form-label"></label>
                 <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email" />
+                <span asp-validation-for="Email" class="text-danger small"></span>
             </div>
 
             <div class="mb-3">
                 <label asp-for="Password" class="form-label"></label>
                 <input asp-for="Password" type="password" class="form-control" placeholder="Enter password" />
+                <span asp-validation-for="Password" class="text-danger small"></span>
             </div>
 
             <div class="mb-3">
@@ -32,8 +35,8 @@
                 <select asp-for="Role" class="form-select">
                     <option value="1">User</option>
                     <option value="2">Organizer</option>
-                    <option value="3">Admin</option>
                 </select>
+                <span asp-validation-for="Role" class="text-danger small"></span>
             </div>
 
             <div class="d-grid gap-2">
