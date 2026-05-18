@@ -27,8 +27,7 @@ namespace KobeKoi.BLL.Service.Auth
                 return "Invalid login parameters.";
             }
 
-            var user = _userRepo.GetAll()
-                .FirstOrDefault(u => u.Email.ToLower() == loginDto.Email.ToLower());
+            var user = _userRepo.GetAll().FirstOrDefault(u => u.Email.ToLower() == loginDto.Email.ToLower());
 
             if (user == null)
             {
@@ -68,15 +67,12 @@ namespace KobeKoi.BLL.Service.Auth
                 return false;
             }
                 
-
-            var existingUser = _userRepo.GetAll()
-                .FirstOrDefault(u => u.Email.ToLower() == dto.Email.ToLower());
+            var existingUser = _userRepo.GetAll().FirstOrDefault(u => u.Email.ToLower() == dto.Email.ToLower());
 
             if (existingUser != null)
             {
                 return false;
             }
-               
 
             var user = new User
             {

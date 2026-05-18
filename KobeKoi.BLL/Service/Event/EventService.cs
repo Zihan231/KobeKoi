@@ -22,10 +22,7 @@ namespace KobeKoi.BLL.Service.Events
         {
             var events = _eventRepo.GetAll().Include(e => e.Venue);
 
-            var filteredEvents = events
-        .Where(e => e.Status == 3
-                 && e.VenuePaymentStatus == 1
-                 && e.AvailableSeats > 0)
+            var filteredEvents = events.Where(e => e.Status == 3 && e.VenuePaymentStatus == 1 && e.AvailableSeats > 0)
         .ToList();
 
             return _mapper.Map<List<EventDTO>>(filteredEvents);
@@ -36,9 +33,7 @@ namespace KobeKoi.BLL.Service.Events
         {
             var query = _eventRepo.GetAll().Include(e => e.Venue).AsQueryable();
 
-            query = query.Where(e => e.Status == 3
-                                  && e.VenuePaymentStatus == 1
-                                  && e.AvailableSeats > 0);
+            query = query.Where(e => e.Status == 3 && e.VenuePaymentStatus == 1 && e.AvailableSeats > 0);
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
@@ -79,7 +74,9 @@ namespace KobeKoi.BLL.Service.Events
         public bool CreateEvent(CreateEventDTO dto, int organizerId)
         {
             if (dto == null)
+            {
                 return false;
+            }
 
             var ev = new Event
             {
@@ -108,18 +105,14 @@ namespace KobeKoi.BLL.Service.Events
         //Events By organizere ID
         public List<EventDTO> GetEventsByOrganizerId(int organizerId)
         {
-            var events = _eventRepo.GetAll()
-                .Where(e => e.OrganizerId == organizerId)
-                .Include(e => e.Venue)
-                .ToList();
+            var events = _eventRepo.GetAll().Where(e => e.OrganizerId == organizerId).Include(e => e.Venue).ToList();
             return _mapper.Map<List<EventDTO>>(events);
         }
 
        
         public bool PayVenue(int eventId)
         {
-            var ev = _eventRepo.GetAll()
-                .FirstOrDefault(e => e.Id == eventId);
+            var ev = _eventRepo.GetAll().FirstOrDefault(e => e.Id == eventId);
 
             if (ev == null)
                 return false;

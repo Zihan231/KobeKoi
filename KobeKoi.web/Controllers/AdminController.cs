@@ -51,7 +51,7 @@ namespace KobeKoi.web.Controllers
             return View(events);
         }
 
-        //update status of an event
+        //update status of a event
         [HttpPost]
         public IActionResult UpdateStatus(int id, int status)
         {

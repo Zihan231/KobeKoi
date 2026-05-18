@@ -31,18 +31,12 @@ namespace KobeKoi.BLL.Service.Admin
             {
                 TotalUsers = users.Count(),
                 TotalEvents = events.Count(),
-
                 PendingEvents = events.Count(e => e.Status == 1),
                 LiveEvents = events.Count(e => e.Status == 3),
                 RejectedEvents = events.Count(e => e.Status == 2),
-
                 LockedUsers = users.Count(u => u.Status == "Locked"),
 
-                RecentEvents = events
-                    .Where(e => e.Status == 3)
-                    .OrderByDescending(e => e.Id)
-                    .Take(3)
-                    .Select(e => new EventDTO
+                RecentEvents = events.Where(e => e.Status == 3).OrderByDescending(e => e.Id).Take(3).Select(e => new EventDTO
                     {
                         Id = e.Id,
                         Title = e.Title,
@@ -52,19 +46,14 @@ namespace KobeKoi.BLL.Service.Admin
                         MaxCapacity = e.MaxCapacity,
                         VenueName = e.Venue.Name,
                         VenueAddress = e.Venue.Address
-                    })
-                    .ToList(),
+                    }).ToList(),
 
-                RecentUsers = users
-                    .OrderByDescending(u => u.Id)
-                    .Take(3)
-                    .Select(u => new UserDTO
+                RecentUsers = users.OrderByDescending(u => u.Id).Take(3).Select(u => new UserDTO
                     {
                         Id = u.Id,
                         Name = u.Name,
                         Email = u.Email
-                    })
-                    .ToList()
+                    }).ToList()
             };
 
             return stats;
@@ -74,14 +63,7 @@ namespace KobeKoi.BLL.Service.Admin
         {
 
             var events = _eventRepo.GetAll().Include(e => e.Venue);
-
-           
-
-            var filteredEvents = _eventRepo.GetAll()
-                .Include(e => e.Venue)
-                .Include(e => e.Organizer)
-                .OrderByDescending(e => e.Id)
-                .ToList();
+            var filteredEvents = _eventRepo.GetAll().Include(e => e.Venue).Include(e => e.Organizer).OrderByDescending(e => e.Id).ToList();
 
             return _mapper.Map<List<EventDTO>>(filteredEvents);
         }
@@ -91,7 +73,10 @@ namespace KobeKoi.BLL.Service.Admin
         {
             var ev = _eventRepo.GetAll().FirstOrDefault(e => e.Id == id);
 
-            if (ev == null) return;
+            if (ev == null)
+            {
+                return;
+            }
 
             ev.Status = status;
 
@@ -103,8 +88,10 @@ namespace KobeKoi.BLL.Service.Admin
         {
             var ev = _eventRepo.GetAll().FirstOrDefault(e => e.Id == id);
 
-            if (ev == null) return;
-
+            if (ev == null)
+            {
+                return;
+            }
             _eventRepo.Delete(ev);
         }
     }
