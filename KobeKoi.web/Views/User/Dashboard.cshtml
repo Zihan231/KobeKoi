@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+
+    var userId = Context.Session.GetInt32("UserId");
+    var userEmail = Context.Session.GetString("UserEmail");
+    var userRole = Context.Session.GetInt32("UserRole");
+}
+
+<div class="container mt-5">
+
+    <h2>Dashboard</h2>
+    <hr />
+
+    @if (userId != null & userEmail != null)
+    {
+        <div class="card p-4 shadow-sm">
+
+            <h4>User Information</h4>
+
+            <p>
+                <strong>User ID:</strong> @userId
+            </p>
+
+            <p>
+                <strong>Email:</strong> @userEmail
+            </p>
+
+            <p>
+                <strong>Role:</strong>
+                @if (userRole == 3)
+                {
+                    <span>Admin</span>
+                }
+                else if (userRole == 2)
+                {
+                    <span>Organizer</span>
+                }
+                else if (userRole == 1)
+                {
+                    <span>Participant</span>
+                }
+                else
+                {
+                    <span>Unknown</span>
+                }
+            </p>
+
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            No session found. Please login first.
+        </div>
+    }
+
+</div>

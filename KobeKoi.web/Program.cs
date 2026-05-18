@@ -1,15 +1,33 @@
 using KobeKoi.BLL;
+using KobeKoi.BLL.Service.Auth;
 using KobeKoi.BLL.Service.Events;
 using KobeKoi.DAL.EF;
 using KobeKoi.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<KobeKoiContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("KobeKoiContext")));
+//Session
+builder.Services.AddSession(option =>
+{
+    option.IdleTimeout = TimeSpan.FromMinutes(30);
+    option.Cookie.HttpOnly = true;
+    option.Cookie.IsEssential = true;
+});
 
+builder.Services.AddDbContext<KobeKoiContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("KobeKoiContext")));
+//register automapper
+builder.Services.AddAutoMapper(typeof(MapperConfig));
+
+//register services
 builder.Services.AddScoped<EventService>();
+builder.Services.AddScoped<AuthService>();
+//builder.Services.AddScoped<UserService>();
+//Register Repos
 builder.Services.AddScoped<EventRepo>();
+builder.Services.AddScoped<UserRepo>();
+
 
 
 
@@ -27,6 +45,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseRouting();
 
 app.UseAuthorization();
@@ -38,5 +57,8 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+app.UseSession();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();

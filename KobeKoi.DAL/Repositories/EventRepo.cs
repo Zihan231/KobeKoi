@@ -15,7 +15,6 @@ namespace KobeKoi.DAL.Repositories
             _db = db;
         }
 
-        // Return IQueryable so callers can compose EF queries (Include/Where) before materializing
         public IQueryable<Event> GetAll()
         {
             return _db.Events;

@@ -8,7 +8,7 @@ namespace KobeKoi.web.Controllers
 {
     public class HomeController : Controller
     {
-        EventService eventService;
+        private readonly EventService eventService;
 
         public HomeController (EventService eventService)
         {
@@ -16,13 +16,19 @@ namespace KobeKoi.web.Controllers
         }
 
 
-
+        [HttpGet]
         public IActionResult Index()
         {
             var events = eventService.GetAllEvents();
             return View(events);
         }
 
+        [HttpGet]
+        public IActionResult EventSearch(string searchTerm, string filterOption)
+        {
+            var events = eventService.SearchAndFilterEvents(searchTerm, filterOption);
+            return View("Index", events);
+        }
         public IActionResult Privacy()
         {
             return View();

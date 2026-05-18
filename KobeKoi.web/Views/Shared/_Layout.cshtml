@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="~/KobeKoi.web.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @{
+        var userId = Context.Session.GetInt32("UserId");
+        var userEmail = Context.Session.GetString("UserEmail");
+        var userRole = Context.Session.GetInt32("UserRole");
+    }
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -26,20 +31,40 @@
                                 Home
                             </a>
                         </li>
+                            @{
+                                if(userEmail == null & userId == null)
+                                {
+                                    <li class="nav-item">
+                                        <a class="text-dark btn btn-primary btn-sm px-3" asp-controller="User" asp-action="Login">
+                                            Login
+                                        </a>
+                                    </li>
 
-                        <li class="nav-item">
-                            <a class="text-dark btn btn-primary btn-sm px-3" asp-controller="User" asp-action="Login">
-                                Login
-                            </a>
-                        </li>
-
-                        <li class="nav-item ms-2">
-                            <a class="btn btn-warning btn-sm text-dark px-3"
-                               asp-controller="User"
-                               asp-action="SignUp">
-                                Sign Up
-                            </a>
-                        </li>
+                                    <li class="nav-item ms-2">
+                                        <a class="btn btn-warning btn-sm text-dark px-3"
+                                           asp-controller="User"
+                                           asp-action="SignUp">
+                                            Sign Up
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                <li class="nav-item ms-2 me-2">
+                                    <a class="btn btn-warning btn-sm text-dark px-3"
+                                       asp-controller="User"
+                                       asp-action="Dashboard">
+                                        Dashboard
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="User" asp-action="Logout" class="btn btn-danger btn-sm">
+                                        Logout
+                                    </a>
+                                </li>
+                                }
+                            }
+                        
 
                     </ul>
                 </div>

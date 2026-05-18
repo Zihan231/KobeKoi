@@ -1,22 +1,33 @@
-﻿@{
+﻿@model KobeKoi.BLL.DTO.LoginDTO
+
+@{
     ViewData["Title"] = "Login";
 }
 
-<div class="container d-flex justify-content-center align-items-center">
+<div class="container d-flex justify-content-center align-items-center mt-5">
     <div class="card shadow-sm p-4" style="width: 350px; border-radius: 10px;">
 
         <h3 class="text-center mb-4">Login</h3>
 
-        <form method="post">
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-info text-center py-2 mb-3 small">
+                @ViewBag.Message
+            </div>
+        }
+
+        <form asp-action="Login" asp-controller="User" method="post">
 
             <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input type="email" class="form-control" placeholder="Enter email" />
+                <input asp-for="Email" type="email" class="form-control" placeholder="Enter email" />
+                <span asp-validation-for="Email" class="text-danger small"></span>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Password</label>
-                <input type="password" class="form-control" placeholder="Enter password" />
+                <input asp-for="Password" type="password" class="form-control" placeholder="Enter password" />
+                <span asp-validation-for="Password" class="text-danger small"></span>
             </div>
 
             <div class="d-grid gap-2">

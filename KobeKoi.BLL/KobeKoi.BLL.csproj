@@ -19,6 +19,7 @@
   <ItemGroup>
     <Folder Include="Service\Admin\" />
     <Folder Include="Service\Organizer\" />
+    <Folder Include="Service\Users\" />
   </ItemGroup>
 
 </Project>
