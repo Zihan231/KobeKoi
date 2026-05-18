@@ -1,0 +1,58 @@
+﻿@model KobeKoi.BLL.DTO.CreateEventDTO
+@{
+    ViewData["Title"] = "Create Event";
+    var venues = ViewBag.Venues as List<KobeKoi.DAL.EF.Tables.Venue>;
+}
+
+<h2>Create Event</h2>
+
+<form asp-action="CreateEvent" asp-controller="Event" method="post">
+
+    <div>
+        <label>Title</label>
+        <input asp-for="Title" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label>Event Date</label>
+        <input asp-for="EventDate" type="date" />
+        <span asp-validation-for="EventDate" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label>Venue</label>
+        <select asp-for="VenueId">
+            <option value="">Select Venue</option>
+
+            @foreach (var v in venues)
+            {
+                <option value="@v.Id">
+                    @v.Name
+                </option>
+            }
+        </select>
+
+        <span asp-validation-for="VenueId" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label>Max Capacity</label>
+        <input asp-for="MaxCapacity" type="number" />
+        <span asp-validation-for="MaxCapacity" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label>Ticket Price</label>
+        <input asp-for="TicketPrice" type="number" step="0.01" />
+        <span asp-validation-for="TicketPrice" class="text-danger"></span>
+    </div>
+
+    <!-- Organizer from session -->
+    <input type="hidden"
+           asp-for="OrganizerId"
+           value="@Context.Session.GetInt32("UserId")" />
+
+    <button type="submit">Create Event</button>
+
+</form>

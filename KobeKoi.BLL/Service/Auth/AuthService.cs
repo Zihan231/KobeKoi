@@ -20,19 +20,44 @@ namespace KobeKoi.BLL.Service.Auth
         //Login service
         public string AuthenticateUser(LoginDTO loginDto)
         {
-            if (loginDto == null || string.IsNullOrWhiteSpace(loginDto.Email) || string.IsNullOrWhiteSpace(loginDto.Password))
+            if (loginDto == null ||
+                string.IsNullOrWhiteSpace(loginDto.Email) ||
+                string.IsNullOrWhiteSpace(loginDto.Password))
             {
                 return "Invalid login parameters.";
             }
 
-            var user = _userRepo.GetAll().FirstOrDefault(u => u.Email.ToLower() == loginDto.Email.ToLower());
+            var user = _userRepo.GetAll()
+                .FirstOrDefault(u => u.Email.ToLower() == loginDto.Email.ToLower());
 
-            if (user != null && user.Password == loginDto.Password)
+            if (user == null)
             {
+                return "Invalid email or password.";
+            }
+
+            if (user.Status == "Locked")
+            {
+                return "Your account is locked. Contact admin.";
+            }
+
+            if (user.Password == loginDto.Password)
+            {
+                user.TotalAttempts = 0;
+                _userRepo.Update(user);
+
                 return "Success";
             }
 
-            return "Invalid email or password.";
+            user.TotalAttempts = (user.TotalAttempts ?? 0) + 1;
+
+            if (user.TotalAttempts >= 5)
+            {
+                user.Status = "Locked";
+            }
+
+            _userRepo.Update(user);
+
+            return $"Invalid password. Attempt {user.TotalAttempts}/5";
         }
 
         //signUp service

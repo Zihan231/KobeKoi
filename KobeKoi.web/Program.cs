@@ -1,6 +1,8 @@
 using KobeKoi.BLL;
+using KobeKoi.BLL.Service.Admin;
 using KobeKoi.BLL.Service.Auth;
 using KobeKoi.BLL.Service.Events;
+using KobeKoi.BLL.Service.Users;
 using KobeKoi.DAL.EF;
 using KobeKoi.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -23,10 +25,13 @@ builder.Services.AddAutoMapper(typeof(MapperConfig));
 //register services
 builder.Services.AddScoped<EventService>();
 builder.Services.AddScoped<AuthService>();
-//builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<AdminService>();
 //Register Repos
 builder.Services.AddScoped<EventRepo>();
 builder.Services.AddScoped<UserRepo>();
+builder.Services.AddScoped<VenueRepo>();
+builder.Services.AddScoped<BookingRepo>();
 
 
 

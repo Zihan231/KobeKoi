@@ -14,10 +14,7 @@ namespace KobeKoi.web.Controllers
             _authService = authService;
             _userRepo = userRepo;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+        
 
 
         //Login form show
@@ -80,7 +77,8 @@ namespace KobeKoi.web.Controllers
                 return RedirectToAction("Login");
             }
 
-            ViewBag.Message = "User creation failed";
+            ViewBag.Message = "Email already exists";
+
             return View(dto);
         }
 

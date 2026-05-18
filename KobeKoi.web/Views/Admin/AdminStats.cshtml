@@ -1,0 +1,88 @@
+﻿@model KobeKoi.BLL.DTO.AdminStatsDTO
+
+@{
+    ViewData["Title"] = "Admin Stats";
+}
+
+<h2>Admin Stats</h2>
+
+<hr />
+
+<p>Total Users: @Model.TotalUsers</p>
+<p>Total Events: @Model.TotalEvents</p>
+<p>Total Locked Accounts: @Model.LockedUsers</p>
+
+<p>Pending Events: @Model.PendingEvents</p>
+<p>Live Events: @Model.LiveEvents</p>
+<p>Rejected Events: @Model.RejectedEvents</p>
+
+<hr />
+
+<h4>Recent Events</h4>
+
+@if (Model.RecentEvents == null || !Model.RecentEvents.Any())
+{
+    <p>No recent events</p>
+}
+else
+{
+    <table border="1" cellpadding="6" cellspacing="0" style="width:100%; margin-bottom:20px;">
+
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Ticket Price</th>
+                <th>Available Seats</th>
+                <th>Max Capacity</th>
+                <th>Venue</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var e in Model.RecentEvents)
+            {
+                <tr>
+                    <td>@e.Title</td>
+                    <td>@e.EventDate.ToString("dd MMM yyyy")</td>
+                    <td>@e.TicketPrice ৳</td>
+                    <td>@e.AvailableSeats</td>
+                    <td>@e.MaxCapacity</td>
+                    <td>@e.VenueName</td>
+                    <td>@e.VenueAddress</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}
+
+<hr />
+
+<h4>Recent Users</h4>
+
+@if (Model.RecentUsers == null || !Model.RecentUsers.Any())
+{
+    <p>No recent users</p>
+}
+else
+{
+    <table border="1" cellpadding="6" cellspacing="0" style="width:100%;">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var u in Model.RecentUsers)
+            {
+                <tr>
+                    <td>@u.Name</td>
+                    <td>@u.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

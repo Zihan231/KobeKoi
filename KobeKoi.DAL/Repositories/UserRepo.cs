@@ -15,13 +15,23 @@ namespace KobeKoi.DAL.Repositories
             _db = db;
         }
 
+        //get all user
         public IQueryable<User> GetAll()
         {
             return _db.Users;
         }
+
+        //add new user
         public void Add(User user)
         {
             _db.Users.Add(user);
+            _db.SaveChanges();
+        }
+
+        //Update
+        public void Update(User user)
+        {
+            _db.Users.Update(user);
             _db.SaveChanges();
         }
     }

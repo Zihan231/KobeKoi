@@ -1,0 +1,87 @@
+﻿@model List<KobeKoi.BLL.DTO.EventDTO>
+
+@{
+    ViewData["Title"] = "My Events";
+}
+
+<h2>My Events</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No events found.</p>
+}
+else
+{
+    <table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse:collapse;">
+
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Venue</th>
+                <th>Capacity</th>
+                <th>Seats Left</th>
+                <th>Venue Payment</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var e in Model)
+            {
+                <tr>
+                    <td>@e.Title</td>
+                    <td>@e.EventDate.ToShortDateString()</td>
+                    <td>@e.VenueName</td>
+                    <td>@e.MaxCapacity</td>
+                    <td>@e.AvailableSeats</td>
+
+                    <td>
+                        @if (e.VenuePaymentStatus == 0)
+                        {
+                            <a asp-action="PayVenue"
+                               asp-route-id="@e.Id"
+                               class="btn btn-sm btn-warning">
+                                Pay
+                            </a>
+                        }
+                        else
+                        {
+                            <span>Paid</span>
+                        }
+                    </td>
+
+                    <td>
+                        @if (e.Status == 1)
+                        {
+                            <span>Pending</span>
+                        }
+                        else if (e.Status == 2)
+                        {
+                            <span>Rejected</span>
+                        }
+                        else if (e.Status == 3)
+                        {
+                            <span>Live</span>
+                        }
+                        else
+                        {
+                            <span>Unknown</span>
+                        }
+                    </td>
+
+                    <!-- Edit Button -->
+                    <td>
+                        <a asp-action="EditEvent"
+                           asp-route-id="@e.Id">
+                            Edit
+                        </a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}

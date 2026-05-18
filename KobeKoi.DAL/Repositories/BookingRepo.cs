@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KobeKoi.DAL.Repositories
 {
-    internal class BookingRepo
+    public class BookingRepo
     {
     }
 }

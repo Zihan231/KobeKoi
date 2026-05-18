@@ -4,55 +4,58 @@
     ViewData["Title"] = "Sign Up";
 }
 
-<div class="container d-flex justify-content-center align-items-center">
+<div class="container mt-5" style="max-width:400px;">
 
-    <div class="card shadow-sm p-4" style="width: 400px; border-radius: 10px;">
+    <h3 class="mb-3">Create Account</h3>
 
-        <h3 class="text-center mb-4">Create Account</h3>
+    @if (ViewBag.Message != null)
+    {
+        <div class="text-danger mb-2">
+            @ViewBag.Message
+        </div>
+    }
 
-        <form asp-action="SignUp" asp-controller="User" method="post">
+    <form asp-action="SignUp" asp-controller="User" method="post">
 
-            <div class="mb-3">
-                <label asp-for="Name" class="form-label"></label>
-                <input asp-for="Name" class="form-control" placeholder="Enter your name" />
-                <span asp-validation-for="Name" class="text-danger small"></span>
-            </div>
+        <div class="mb-3">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger small"></span>
+        </div>
 
-            <div class="mb-3">
-                <label asp-for="Email" class="form-label"></label>
-                <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email" />
-                <span asp-validation-for="Email" class="text-danger small"></span>
-            </div>
+        <div class="mb-3">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" type="email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger small"></span>
+        </div>
 
-            <div class="mb-3">
-                <label asp-for="Password" class="form-label"></label>
-                <input asp-for="Password" type="password" class="form-control" placeholder="Enter password" />
-                <span asp-validation-for="Password" class="text-danger small"></span>
-            </div>
+        <div class="mb-3">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" type="password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger small"></span>
+        </div>
 
-            <div class="mb-3">
-                <label asp-for="Role" class="form-label"></label>
-                <select asp-for="Role" class="form-select">
-                    <option value="1">User</option>
-                    <option value="2">Organizer</option>
-                </select>
-                <span asp-validation-for="Role" class="text-danger small"></span>
-            </div>
+        <div class="mb-3">
+            <label asp-for="Role"></label>
 
-            <div class="d-grid gap-2">
+            <select asp-for="Role" class="form-control">
+                <option value="1">User</option>
+                <option value="2">Organizer</option>
+            </select>
 
-                <button type="submit" class="btn btn-dark">
-                    Sign Up
-                </button>
+            <span asp-validation-for="Role" class="text-danger small"></span>
+        </div>
 
-                <a asp-action="Login" asp-controller="User" class="btn btn-outline-secondary">
-                    Login
-                </a>
+        <button type="submit" class="btn btn-dark">
+            Sign Up
+        </button>
 
-            </div>
+        <a asp-action="Login"
+           asp-controller="User"
+           class="btn btn-light border">
+            Login
+        </a>
 
-        </form>
-
-    </div>
+    </form>
 
 </div>

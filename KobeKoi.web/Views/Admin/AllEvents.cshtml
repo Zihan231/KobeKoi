@@ -1,0 +1,119 @@
+﻿@model List<KobeKoi.BLL.DTO.EventDTO>
+
+@{
+    ViewData["Title"] = "All Events";
+}
+
+<h2>All Events</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No events found.</p>
+}
+else
+{
+    <table border="1" cellpadding="6" cellspacing="0" style="width:100%;">
+
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Venue</th>
+                <th>Price</th>
+                <th>Seats</th>
+                <th>Status</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var e in Model)
+            {
+                <tr>
+
+                    <td>@e.Title</td>
+
+                    <td>
+                        @e.EventDate.ToString("dd MMM yyyy")
+                    </td>
+
+                    <td>@e.VenueName</td>
+
+                    <td>@e.TicketPrice ৳</td>
+
+                    <td>
+                        @e.AvailableSeats / @e.MaxCapacity
+                    </td>
+
+                    <td>
+
+                        <form asp-action="UpdateStatus"
+                              asp-controller="Admin"
+                              method="post">
+
+                            <input type="hidden"
+                                   name="id"
+                                   value="@e.Id" />
+
+                            <select name="status"
+                                    onchange="this.form.submit()">
+
+                                @if (e.Status == 1)
+                                {
+                                    <option value="1" selected>Pending</option>
+                                }
+                                else
+                                {
+                                    <option value="1">Pending</option>
+                                }
+
+                                @if (e.Status == 2)
+                                {
+                                    <option value="2" selected>Rejected</option>
+                                }
+                                else
+                                {
+                                    <option value="2">Rejected</option>
+                                }
+
+                                @if (e.Status == 3)
+                                {
+                                    <option value="3" selected>Live</option>
+                                }
+                                else
+                                {
+                                    <option value="3">Live</option>
+                                }
+
+                            </select>
+
+                        </form>
+
+                    </td>
+
+                    <td>
+
+                        <form asp-action="DeleteEvent"
+                              asp-controller="Admin"
+                              method="post">
+
+                            <input type="hidden"
+                                   name="id"
+                                   value="@e.Id" />
+
+                            <button type="submit">
+                                Delete
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+}

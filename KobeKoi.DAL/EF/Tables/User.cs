@@ -17,6 +17,10 @@ public partial class User
 
     public DateTime? CreatedAt { get; set; }
 
+    public int? TotalAttempts { get; set; }
+
+    public string? Status { get; set; }
+
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
     public virtual ICollection<Event> Events { get; set; } = new List<Event>();

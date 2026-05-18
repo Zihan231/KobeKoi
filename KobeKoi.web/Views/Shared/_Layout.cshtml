@@ -57,6 +57,34 @@
                                         Dashboard
                                     </a>
                                 </li>
+                                    {
+                                        if(userRole == 2)
+                                        {
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-controller="Event" asp-action="CreateEvent">
+                                                Create Event
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-controller="Event" asp-action="MyEvents">
+                                                My Events
+                                            </a>
+                                        </li>
+                                        }
+                                        if(userRole == 3)
+                                        {
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-controller="Admin" asp-action="AdminStats">
+                                                Stats
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-controller="Admin" asp-action="AllEvents">
+                                                All Events
+                                            </a>
+                                        </li>
+                                        }
+                                    }
                                 <li class="nav-item">
                                     <a asp-controller="User" asp-action="Logout" class="btn btn-danger btn-sm">
                                         Logout
